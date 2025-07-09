@@ -22,33 +22,25 @@
             font-size: 2.5em;
             margin-bottom: 10px;
         }
-        .download-section {
-            text-align: center;
-            margin-top: 50px;
-        }
-        .download-btn {
+        .btn {
             display: inline-block;
             padding: 8px 16px;
-            background-color: #555;
             color: white;
             text-decoration: none;
             margin: 5px;
             border-radius: 3px;
+        }
+        .nav-btn {
+            background-color: #777;
+        }
+        .nav-btn:hover {
+            background-color: #555;
+        }
+        .download-btn {
+            background-color: #555;
         }
         .download-btn:hover {
             background-color: #333;
-        }
-        .docs-btn {
-            display: inline-block;
-            padding: 8px 16px;
-            background-color: #777;
-            color: white;
-            text-decoration: none;
-            margin: 5px;
-            border-radius: 3px;
-        }
-        .docs-btn:hover {
-            background-color: #555;
         }
         footer {
             margin-top: 50px;
@@ -61,49 +53,67 @@
             color: #666;
             margin-top: 5px;
         }
-        #docs-content {
+        .content-section {
             display: none;
             margin: 20px 0;
             padding: 15px;
             background-color: #eee;
             border-radius: 5px;
         }
+        .active-section {
+            display: block;
+        }
     </style>
-
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-database-compat.js"></script>
 </head>
 <body>
     <header>
         <h1>Nano OS</h1>
-        <a href="#docs" class="docs-btn" onclick="showDocs()">Documentation</a>
+        <a href="#" class="btn nav-btn" onclick="showSection('news-content'); return false;">News</a>
+        <a href="#" class="btn nav-btn" onclick="showSection('docs-content'); return false;">Documentation</a>
+        <a href="#" class="btn nav-btn" onclick="showSection('privacy-content'); return false;">Privacy Policy</a>
     </header>
 
     <main>
         <p>Welcome to the Nano OS Kernel</p>
 
-        <div id="docs-content">
-            0001 - 25062025
-            The very first kernel version. The letters A and T stand for Alpha Test. There was a basic file system and commands.
-            0010 - 0.0.1bt
-            The very first beta test of the kernel The time command was added
-            0011 - 0.0.2
-            full version of adra There is a small functionality Many new commands were added
+        <div id="news-content" class="content-section active-section">
+            <h2>Latest News</h2>
+            <p>Global V0.0.2 </p>
+        </div>
+
+        <div id="docs-content" class="content-section">
+            <h2>Documentation</h2>
+            <pre>0001 - 25062025
+The very first kernel version. The letters A and T stand for Alpha Test. There was a basic file system and commands.
+0010 - 0.0.1bt
+The very first beta test of the kernel The time command was added
+0011 - 0.0.2
+full version of adra There is a small functionality Many new commands were added</pre>
+        </div>
+
+        <div id="privacy-content" class="content-section">
+            <h2>Privacy Policy</h2>
+            <p>Your privacy is important to us...</p>
         </div>
 
         <div class="download-section">
-            <p>25062025</p>
-            <a href="https://drive.google.com/file/d/181wh_0UOtjrKPdle4niSDDtNu1E38G4e/view?usp=sharing" class="download-btn" onclick="trackDownload('ver1')">Download</a>
-            <div class="download-count" id="count1">Loading downloads...</div>
+            <div class="download-item">
+                <p>25062025</p>
+                <a href="https://drive.google.com/file/d/181wh_0UOtjrKPdle4niSDDtNu1E38G4e/view?usp=sharing" class="btn download-btn" onclick="trackDownload('ver1')">Download</a>
+                <div class="download-count" id="count1">Loading downloads...</div>
+            </div>
 
-            <p>0.0.1bt</p>
-            <a href="https://drive.google.com/file/d/1z9QRclQrTu2SZS86EU9OgJEVVupe3s9R/view?usp=sharing" class="download-btn" onclick="trackDownload('ver2')">Download</a>
-            <div class="download-count" id="count2">Loading downloads...</div>
+            <div class="download-item">
+                <p>0.0.1bt</p>
+                <a href="https://drive.google.com/file/d/1z9QRclQrTu2SZS86EU9OgJEVVupe3s9R/view?usp=sharing" class="btn download-btn" onclick="trackDownload('ver2')">Download</a>
+                <div class="download-count" id="count2">Loading downloads...</div>
+            </div>
 
-            <p>0.0.2</p>
-            <a href="https://drive.google.com/file/d/1_Nu04uRp3QKA32ANJpcc1EALG0tgv52J/view?usp=sharing" class="download-btn" onclick="trackDownload('ver3')">Download</a>
-            <div class="download-count" id="count3">Loading downloads...</div>
+            <div class="download-item">
+                <p>0.0.2</p>
+                <a href="https://drive.google.com/file/d/1_Nu04uRp3QKA32ANJpcc1EALG0tgv52J/view?usp=sharing" class="btn download-btn" onclick="trackDownload('ver3')">Download</a>
+                <div class="download-count" id="count3">Loading downloads...</div>
+            </div>
         </div>
     </main>
 
@@ -112,8 +122,12 @@
         <p>Все права защищены ©2025</p>
     </footer>
 
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-database-compat.js"></script>
+
     <script>
-        // Firebase configuration (replace with your own)
+        // Инициализация Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyCu5jtb_u7H13Fl0OzGjp68jrBoUwIhfgI",
             authDomain: "nano-e1f63.firebaseapp.com",
@@ -124,41 +138,44 @@
             appId: "1:904182892074:web:baed54b3dc97b1e7c16553"
         };
 
-        // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
-        // Function to show documentation
-        function showDocs() {
-            const docsContent = document.getElementById('docs-content');
-            docsContent.style.display = docsContent.style.display === 'block' ? 'none' : 'block';
-            return false; // Prevent default anchor behavior
+        // Показываем выбранный раздел
+        function showSection(sectionId) {
+            // Скрываем все разделы
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active-section');
+            });
+
+            // Показываем выбранный раздел
+            document.getElementById(sectionId).classList.add('active-section');
         }
 
-        // Load download counts from Firebase
+        // Отслеживание загрузок
+        function trackDownload(version) {
+            const ref = database.ref('downloadCounts/' + version);
+            ref.transaction(currentCount => {
+                return (currentCount || 0) + 1;
+            });
+
+            // Разрешаем переход по ссылке
+            return true;
+        }
+
+        // Загрузка счетчиков
         function loadDownloadCounts() {
             const versions = ['ver1', 'ver2', 'ver3'];
-            
+
             versions.forEach(version => {
-                database.ref('downloadCounts/' + version).on('value', (snapshot) => {
+                database.ref('downloadCounts/' + version).on('value', snapshot => {
                     const count = snapshot.val() || 0;
                     document.getElementById(`count${version.slice(-1)}`).textContent = `${count} downloads`;
                 });
             });
         }
 
-        // Track a download and update Firebase
-        function trackDownload(version) {
-            const ref = database.ref('downloadCounts/' + version);
-            
-            ref.transaction((currentCount) => {
-                return (currentCount || 0) + 1;
-            });
-
-            // The download will proceed normally after this function runs
-        }
-
-        // Load counts when the page loads
+        // Загружаем счетчики при старте
         window.onload = loadDownloadCounts;
     </script>
 </body>
