@@ -38,31 +38,63 @@
         .download-btn:hover {
             background-color: #333;
         }
+        .docs-btn {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #777;
+            color: white;
+            text-decoration: none;
+            margin: 5px;
+            border-radius: 3px;
+        }
+        .docs-btn:hover {
+            background-color: #555;
+        }
         footer {
             margin-top: 50px;
             text-align: center;
             font-size: 0.9em;
             color: #666;
         }
+        .download-count {
+            font-size: 0.8em;
+            color: #666;
+            margin-top: 5px;
+        }
+        #docs-content {
+            display: none;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #eee;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
     <header>
         <h1>Nano OS</h1>
+        <a href="#docs" class="docs-btn" onclick="showDocs()">Documentation</a>
     </header>
 
     <main>
         <p>Welcome to the Nano OS Kernel</p>
 
+        <div id="docs-content">
+            Привет мир
+        </div>
+
         <div class="download-section">
             <p>25062025</p>
-            <a href="https://drive.google.com/file/d/181wh_0UOtjrKPdle4niSDDtNu1E38G4e/view?usp=sharing" class="download-btn">Download</a>
+            <a href="https://drive.google.com/file/d/181wh_0UOtjrKPdle4niSDDtNu1E38G4e/view?usp=sharing" class="download-btn" onclick="trackDownload('ver1')">Download</a>
+            <div class="download-count" id="count1">0 downloads</div>
 
             <p>0.0.1bt</p>
-            <a href="https://drive.google.com/file/d/1z9QRclQrTu2SZS86EU9OgJEVVupe3s9R/view?usp=sharing" class="download-btn">Download</a>
+            <a href="https://drive.google.com/file/d/1z9QRclQrTu2SZS86EU9OgJEVVupe3s9R/view?usp=sharing" class="download-btn" onclick="trackDownload('ver2')">Download</a>
+            <div class="download-count" id="count2">0 downloads</div>
 
             <p>0.0.2</p>
-            <a href="https://drive.google.com/file/d/1_Nu04uRp3QKA32ANJpcc1EALG0tgv52J/view?usp=sharing" class="download-btn">Download</a>
+            <a href="https://drive.google.com/file/d/1_Nu04uRp3QKA32ANJpcc1EALG0tgv52J/view?usp=sharing" class="download-btn" onclick="trackDownload('ver3')">Download</a>
+            <div class="download-count" id="count3">0 downloads</div>
         </div>
     </main>
 
@@ -70,5 +102,40 @@
         <p>The Nano OS Kernel</p>
         <p>Все права защищены ©2025</p>
     </footer>
+
+    <script>
+        // Function to show documentation
+        function showDocs() {
+            const docsContent = document.getElementById('docs-content');
+            docsContent.style.display = docsContent.style.display === 'block' ? 'none' : 'block';
+            return false; // Prevent default anchor behavior
+        }
+
+        // Initialize download counts from localStorage or set to 0
+        let downloadCounts = {
+            ver1: localStorage.getItem('downloadCount_ver1') || 0,
+            ver2: localStorage.getItem('downloadCount_ver2') || 0,
+            ver3: localStorage.getItem('downloadCount_ver3') || 0
+        };
+
+        // Display initial counts
+        document.getElementById('count1').textContent = `${downloadCounts.ver1} downloads`;
+        document.getElementById('count2').textContent = `${downloadCounts.ver2} downloads`;
+        document.getElementById('count3').textContent = `${downloadCounts.ver3} downloads`;
+
+        // Function to track downloads
+        function trackDownload(version) {
+            // Increment the count
+            downloadCounts[version]++;
+            
+            // Save to localStorage
+            localStorage.setItem(`downloadCount_${version}`, downloadCounts[version]);
+            
+            // Update the display
+            document.getElementById(`count${version.slice(-1)}`).textContent = `${downloadCounts[version]} downloads`;
+            
+            // Note: The download will proceed normally after this function runs
+        }
+    </script>
 </body>
 </html>
