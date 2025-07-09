@@ -69,6 +69,10 @@
             border-radius: 5px;
         }
     </style>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-database-compat.js"></script>
 </head>
 <body>
     <header>
@@ -80,26 +84,26 @@
         <p>Welcome to the Nano OS Kernel</p>
 
         <div id="docs-content">
-            0001 - 25062025 
+            0001 - 25062025
             The very first kernel version. The letters A and T stand for Alpha Test. There was a basic file system and commands.
-            0010 - 0.0.1bt 
+            0010 - 0.0.1bt
             The very first beta test of the kernel The time command was added
-            0011 - 0.0.2 
+            0011 - 0.0.2
             full version of adra There is a small functionality Many new commands were added
         </div>
 
         <div class="download-section">
             <p>25062025</p>
             <a href="https://drive.google.com/file/d/181wh_0UOtjrKPdle4niSDDtNu1E38G4e/view?usp=sharing" class="download-btn" onclick="trackDownload('ver1')">Download</a>
-            <div class="download-count" id="count1">0 downloads</div>
+            <div class="download-count" id="count1">Loading downloads...</div>
 
             <p>0.0.1bt</p>
             <a href="https://drive.google.com/file/d/1z9QRclQrTu2SZS86EU9OgJEVVupe3s9R/view?usp=sharing" class="download-btn" onclick="trackDownload('ver2')">Download</a>
-            <div class="download-count" id="count2">0 downloads</div>
+            <div class="download-count" id="count2">Loading downloads...</div>
 
             <p>0.0.2</p>
             <a href="https://drive.google.com/file/d/1_Nu04uRp3QKA32ANJpcc1EALG0tgv52J/view?usp=sharing" class="download-btn" onclick="trackDownload('ver3')">Download</a>
-            <div class="download-count" id="count3">0 downloads</div>
+            <div class="download-count" id="count3">Loading downloads...</div>
         </div>
     </main>
 
@@ -109,6 +113,21 @@
     </footer>
 
     <script>
+        // Firebase configuration (replace with your own)
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
         // Function to show documentation
         function showDocs() {
             const docsContent = document.getElementById('docs-content');
@@ -116,31 +135,31 @@
             return false; // Prevent default anchor behavior
         }
 
-        // Initialize download counts from localStorage or set to 0
-        let downloadCounts = {
-            ver1: localStorage.getItem('downloadCount_ver1') || 0,
-            ver2: localStorage.getItem('downloadCount_ver2') || 0,
-            ver3: localStorage.getItem('downloadCount_ver3') || 0
-        };
-
-        // Display initial counts
-        document.getElementById('count1').textContent = `${downloadCounts.ver1} downloads`;
-        document.getElementById('count2').textContent = `${downloadCounts.ver2} downloads`;
-        document.getElementById('count3').textContent = `${downloadCounts.ver3} downloads`;
-
-        // Function to track downloads
-        function trackDownload(version) {
-            // Increment the count
-            downloadCounts[version]++;
+        // Load download counts from Firebase
+        function loadDownloadCounts() {
+            const versions = ['ver1', 'ver2', 'ver3'];
             
-            // Save to localStorage
-            localStorage.setItem(`downloadCount_${version}`, downloadCounts[version]);
-            
-            // Update the display
-            document.getElementById(`count${version.slice(-1)}`).textContent = `${downloadCounts[version]} downloads`;
-            
-            // Note: The download will proceed normally after this function runs
+            versions.forEach(version => {
+                database.ref('downloadCounts/' + version).on('value', (snapshot) => {
+                    const count = snapshot.val() || 0;
+                    document.getElementById(`count${version.slice(-1)}`).textContent = `${count} downloads`;
+                });
+            });
         }
+
+        // Track a download and update Firebase
+        function trackDownload(version) {
+            const ref = database.ref('downloadCounts/' + version);
+            
+            ref.transaction((currentCount) => {
+                return (currentCount || 0) + 1;
+            });
+
+            // The download will proceed normally after this function runs
+        }
+
+        // Load counts when the page loads
+        window.onload = loadDownloadCounts;
     </script>
 </body>
 </html>
