@@ -63,6 +63,68 @@
         .active-section {
             display: block;
         }
+        /* New styles for notification toggle */
+        .notification-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #555;
+        }
+        input:checked + .slider {
+            background-color: #555;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        .notification-label {
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+        .notification-bell {
+            display: inline-block;
+            margin-right: 10px;
+            font-size: 20px;
+        }
     </style>
 </head>
 <body>
@@ -173,24 +235,40 @@ full version of adra There is a small functionality Many new commands were added
 
         <div class="download-section">
             <div class="download-item">
-                <p>25062025</p>
-                <a href="https://drive.google.com/file/d/181wh_0UOtjrKPdle4niSDDtNu1E38G4e/view?usp=sharing" class="btn download-btn" onclick="trackDownload('ver1')">Download</a>
+                <p>0.0.3</p>
+                <a href="https://drive.google.com/file/d/1G1G5jyXoMA7HV0roCXCyt-eM_yHjvSJj/view?usp=sharing" class="btn download-btn" onclick="trackDownload('ver1')">Download</a>
                 <div class="download-count" id="count1">Loading downloads...</div>
             </div>
 
             <div class="download-item">
-                <p>0.0.1bt</p>
+                <p>0.0.2</p>
                 <a href="https://drive.google.com/file/d/1z9QRclQrTu2SZS86EU9OgJEVVupe3s9R/view?usp=sharing" class="btn download-btn" onclick="trackDownload('ver2')">Download</a>
                 <div class="download-count" id="count2">Loading downloads...</div>
             </div>
 
             <div class="download-item">
-                <p>0.0.2</p>
-                <a href="https://drive.google.com/file/d/1_Nu04uRp3QKA32ANJpcc1EALG0tgv52J/view?usp=sharing" class="btn download-btn" onclick="trackDownload('ver3')">Download</a>
+                <p>0.0.1bt</p>
+                <a href="https://drive.google.com/file/d/1z9QRclQrTu2SZS86EU9OgJEVVupe3s9R/view?usp=sharing" class="btn download-btn" onclick="trackDownload('ver3')">Download</a>
                 <div class="download-count" id="count3">Loading downloads...</div>
+            </div>
+            
+            <div class="download-item">
+                <p>25062025</p>
+                <a href="https://drive.google.com/file/d/181wh_0UOtjrKPdle4niSDDtNu1E38G4e/view?usp=sharing" class="btn download-btn" onclick="trackDownload('ver4')">Download</a>
+                <div class="download-count" id="count4">Loading downloads...</div>
             </div>
         </div>
     </main>
+
+    <!-- Notification Toggle -->
+    <div class="notification-container">
+        <span class="notification-bell">🔔</span>
+        <label class="switch">
+            <input type="checkbox" id="notificationToggle">
+            <span class="slider"></span>
+        </label>
+        <span class="notification-label">News Notifications</span>
+    </div>
 
     <footer>
         <p>The Nano OS Kernel</p>
@@ -250,8 +328,83 @@ full version of adra There is a small functionality Many new commands were added
             });
         }
 
-        // Загружаем счетчики при старте
-        window.onload = loadDownloadCounts;
+        // Notification functionality
+        function setupNotifications() {
+            const toggle = document.getElementById('notificationToggle');
+            
+            // Check if notifications are supported
+            if (!('Notification' in window)) {
+                toggle.disabled = true;
+                console.log('This browser does not support notifications');
+                return;
+            }
+            
+            // Check current permission state
+            if (Notification.permission === 'denied') {
+                toggle.disabled = true;
+                console.log('Notifications are blocked by the user');
+                return;
+            }
+            
+            // Load saved preference
+            const notificationsEnabled = localStorage.getItem('notificationsEnabled') === 'true';
+            toggle.checked = notificationsEnabled;
+            
+            // Set up toggle handler
+            toggle.addEventListener('change', function() {
+                if (this.checked) {
+                    // Request permission if not already granted
+                    if (Notification.permission !== 'granted') {
+                        Notification.requestPermission().then(permission => {
+                            if (permission === 'granted') {
+                                localStorage.setItem('notificationsEnabled', 'true');
+                                showSampleNotification();
+                            } else {
+                                this.checked = false;
+                            }
+                        });
+                    } else {
+                        localStorage.setItem('notificationsEnabled', 'true');
+                        showSampleNotification();
+                    }
+                } else {
+                    localStorage.setItem('notificationsEnabled', 'false');
+                }
+            });
+            
+            // If notifications are enabled, listen for news updates
+            if (notificationsEnabled) {
+                listenForNewsUpdates();
+            }
+        }
+        
+        function showSampleNotification() {
+            if (Notification.permission === 'granted') {
+                new Notification('Nano OS News', {
+                    body: 'Notifications are now enabled! You will receive updates about new releases and important news.',
+                    icon: 'https://via.placeholder.com/64'
+                });
+            }
+        }
+        
+        function listenForNewsUpdates() {
+            // In a real implementation, you would listen to Firebase for news updates
+            // For now, we'll just simulate it with a timeout
+            setTimeout(() => {
+                if (localStorage.getItem('notificationsEnabled') === 'true' && Notification.permission === 'granted') {
+                    new Notification('New Nano OS Update', {
+                        body: 'Version 0.0.3 is now available for download!',
+                        icon: 'https://via.placeholder.com/64'
+                    });
+                }
+            }, 10000);
+        }
+
+        // Initialize everything when the page loads
+        window.onload = function() {
+            loadDownloadCounts();
+            setupNotifications();
+        };
     </script>
 </body>
 </html>
