@@ -20,6 +20,21 @@
             --warning: #d08770;
         }
 
+        /* Dark theme variables */
+        .dark-mode {
+            --primary: #5e81ac;
+            --primary-dark: #4c6a8c;
+            --secondary: #3b4252;
+            --accent: #8fbcbb;
+            --background: #121212;
+            --card-bg: #1e1e1e;
+            --text: #eceff4;
+            --text-light: #d8dee9;
+            --border: #3b4252;
+            --success: #a3be8c;
+            --warning: #d08770;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--background);
@@ -28,6 +43,19 @@
             margin: 0;
             padding: 0;
             min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Binary code background for dark mode */
+        .dark-mode body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><defs><pattern id="binary" width="40" height="40" patternUnits="userSpaceOnUse"><text x="0" y="20" font-family="Courier New" font-size="12" fill="rgba(143, 188, 187, 0.05)">10101010 01010101 10101010 01010101 10101010 01010101 10101010 01010101 10101010 01010101 10101010 01010101 10101010 01010101 10101010 01010101 10101010 01010101 10101010 01010101 10101010 01010101 10101010 01010101 10101010 01010101 10101010 01010101 10101010 01010101 10101010 01010101 10101010 01010101 10101010 01010101 10101010 01010101 10101010 01010101</text></pattern></defs><rect width="100%" height="100%" fill="url(%23binary)" opacity="0.5" style="filter: blur(1px);"/></svg>');
+            z-index: -1;
         }
 
         .container {
@@ -43,6 +71,7 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             position: relative;
             z-index: 100;
+            transition: background-color 0.3s ease;
         }
 
         .header-content {
@@ -61,16 +90,19 @@
         .logo-icon {
             font-size: 2rem;
             color: var(--accent);
+            transition: color 0.3s ease;
         }
 
         .logo-text {
             font-family: 'JetBrains Mono', monospace;
             font-weight: 700;
             font-size: 1.8rem;
+            transition: color 0.3s ease;
         }
 
         .logo-text span {
             color: var(--accent);
+            transition: color 0.3s ease;
         }
 
         nav {
@@ -107,6 +139,7 @@
             text-align: center;
             position: relative;
             overflow: hidden;
+            transition: background 0.3s ease;
         }
 
         .hero::before {
@@ -145,6 +178,7 @@
             padding: 12px 30px;
             font-size: 1.1rem;
             box-shadow: 0 4px 15px rgba(0, 102, 255, 0.3);
+            transition: all 0.3s ease;
         }
 
         .download-btn:hover {
@@ -164,6 +198,7 @@
             color: var(--secondary);
             position: relative;
             display: inline-block;
+            transition: color 0.3s ease;
         }
 
         .section-title::after {
@@ -174,6 +209,7 @@
             width: 50px;
             height: 3px;
             background-color: var(--accent);
+            transition: background-color 0.3s ease;
         }
 
         .content-section {
@@ -184,6 +220,7 @@
             margin-bottom: 2rem;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             border: 1px solid var(--border);
+            transition: all 0.3s ease;
         }
 
         .active-section {
@@ -209,7 +246,7 @@
             padding: 1.5rem;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             border: 1px solid var(--border);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
         }
 
         .download-card:hover {
@@ -222,6 +259,7 @@
             margin-top: 0;
             color: var(--secondary);
             font-size: 1.3rem;
+            transition: color 0.3s ease;
         }
 
         .version-badge {
@@ -234,11 +272,13 @@
             font-weight: bold;
             margin-left: 10px;
             vertical-align: middle;
+            transition: background-color 0.3s ease;
         }
 
         .download-card p {
             color: var(--text-light);
             margin-bottom: 1.5rem;
+            transition: color 0.3s ease;
         }
 
         .card-btn {
@@ -248,6 +288,7 @@
             text-align: center;
             padding: 10px;
             border-radius: 6px;
+            transition: background-color 0.3s ease;
         }
 
         .card-btn:hover {
@@ -261,6 +302,7 @@
             display: flex;
             align-items: center;
             gap: 5px;
+            transition: color 0.3s ease;
         }
 
         .download-count::before {
@@ -276,6 +318,7 @@
             font-family: 'JetBrains Mono', monospace;
             color: #d8dee9;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
         }
 
         .terminal-header {
@@ -317,6 +360,7 @@
             padding: 2rem 0;
             text-align: center;
             margin-top: 4rem;
+            transition: background-color 0.3s ease;
         }
 
         .footer-content {
@@ -364,6 +408,7 @@
             transform: translateY(20px);
             opacity: 0;
             animation: slideUp 0.5s ease 1s forwards;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
 
         @keyframes slideUp {
@@ -376,6 +421,7 @@
         .notification-bell {
             font-size: 1.2rem;
             color: var(--primary);
+            transition: color 0.3s ease;
         }
 
         .switch {
@@ -426,146 +472,52 @@
         .notification-label {
             font-size: 0.9rem;
             color: var(--text);
+            transition: color 0.3s ease;
         }
 
-        /* Forum Styles */
-        .auth-form {
-            background-color: var(--card-bg);
-            border-radius: 8px;
-            padding: 2rem;
-            margin: 2rem auto;
-            max-width: 500px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            border: 1px solid var(--border);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: var(--text);
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 10px;
-            border-radius: 6px;
-            border: 1px solid var(--border);
-            background-color: var(--card-bg);
-            color: var(--text);
-            font-family: 'Inter', sans-serif;
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .auth-switch {
-            text-align: center;
-            margin-top: 1rem;
-            color: var(--text-light);
-        }
-
-        .auth-switch a {
-            color: var(--primary);
-            text-decoration: none;
-        }
-
-        .forum-controls {
+        /* Dark mode toggle */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
             display: flex;
-            gap: 10px;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .post {
-            background-color: var(--card-bg);
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            border: 1px solid var(--border);
-        }
-
-        .post-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 1rem;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 0.5rem;
-        }
-
-        .post-author {
-            font-weight: 600;
-            color: var(--primary);
-        }
-
-        .post-date {
-            color: var(--text-light);
-            font-size: 0.9rem;
-        }
-
-        .post-title {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-            color: var(--secondary);
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        .post-content {
-            color: var(--text);
-            margin-bottom: 1rem;
-        }
-
-        .post-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .post-actions button {
-            background: none;
-            border: none;
-            color: var(--text-light);
-            cursor: pointer;
-            font-size: 0.9rem;
-            padding: 5px 10px;
-            border-radius: 4px;
-        }
-
-        .post-actions button:hover {
-            background-color: rgba(0, 0, 0, 0.05);
-        }
-
-        .admin-section {
-            background-color: var(--card-bg);
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            border: 1px solid var(--border);
-        }
-
-        .admin-list-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px;
-            border-bottom: 1px solid var(--border);
             align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+            color: var(--text);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
         }
 
-        .admin-list-item:last-child {
-            border-bottom: none;
+        .dark-mode-toggle:hover {
+            background: rgba(0, 0, 0, 0.2);
         }
 
-        .admin-actions {
-            display: flex;
-            gap: 10px;
+        .dark-mode .dark-mode-toggle {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .dark-mode .dark-mode-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Glowing effect for dark mode */
+        .dark-mode .terminal-window {
+            box-shadow: 0 0 15px rgba(143, 188, 187, 0.3);
+        }
+
+        .dark-mode .download-card {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .dark-mode .download-card:hover {
+            box-shadow: 0 8px 25px rgba(143, 188, 187, 0.3);
         }
 
         /* Responsive design */
@@ -594,29 +546,18 @@
                 width: calc(100% - 40px);
                 justify-content: center;
             }
-        }
 
-        /* Dark mode toggle (optional) */
-        .dark-mode-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            background: rgba(0, 0, 0, 0.1);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            border: none;
-            color: var(--text);
-            font-size: 1.2rem;
+            .dark-mode-toggle {
+                top: 10px;
+                right: 10px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Dark Mode Toggle -->
+    <button class="dark-mode-toggle" id="darkModeToggle">🌓</button>
+
     <header>
         <div class="container header-content">
             <div class="logo">
@@ -627,7 +568,6 @@
                 <a href="#" class="btn nav-btn" onclick="showSection('news-content'); return false;">News</a>
                 <a href="#" class="btn nav-btn" onclick="showSection('docs-content'); return false;">Docs</a>
                 <a href="#" class="btn nav-btn" onclick="showSection('privacy-content'); return false;">Privacy</a>
-                <a href="#" class="btn nav-btn" onclick="showSection('forum-content'); return false;">Forum</a>
             </nav>
         </div>
     </header>
@@ -720,81 +660,6 @@
             </div>
         </div>
 
-        <div id="forum-content" class="content-section">
-            <h2 class="section-title">Nano OS Forum</h2>
-            
-            <div id="forum-auth-container">
-                <div class="auth-form" id="login-form">
-                    <h3>Login</h3>
-                    <div class="form-group">
-                        <label for="login-email">Email</label>
-                        <input type="email" id="login-email" placeholder="your@email.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="login-password">Password</label>
-                        <input type="password" id="login-password" placeholder="••••••••">
-                    </div>
-                    <button class="btn card-btn" onclick="loginUser()">Login</button>
-                    <p class="auth-switch">Don't have an account? <a href="#" onclick="showRegisterForm(); return false;">Register</a></p>
-                </div>
-
-                <div class="auth-form" id="register-form" style="display: none;">
-                    <h3>Register</h3>
-                    <div class="form-group">
-                        <label for="register-username">Username</label>
-                        <input type="text" id="register-username" placeholder="nano_user">
-                    </div>
-                    <div class="form-group">
-                        <label for="register-email">Email</label>
-                        <input type="email" id="register-email" placeholder="your@email.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="register-password">Password</label>
-                        <input type="password" id="register-password" placeholder="••••••••">
-                    </div>
-                    <button class="btn card-btn" onclick="registerUser()">Register</button>
-                    <p class="auth-switch">Already have an account? <a href="#" onclick="showLoginForm(); return false;">Login</a></p>
-                </div>
-            </div>
-
-            <div id="forum-main" style="display: none;">
-                <div class="forum-controls">
-                    <button class="btn nav-btn" onclick="showCreatePostForm()">Create Post</button>
-                    <button class="btn nav-btn" id="admin-btn" style="display: none;" onclick="showAdminPanel()">Admin Panel</button>
-                    <button class="btn nav-btn" onclick="logoutUser()">Logout</button>
-                </div>
-
-                <div id="create-post-form" style="display: none; margin-bottom: 2rem;">
-                    <div class="form-group">
-                        <label for="post-title">Title</label>
-                        <input type="text" id="post-title" placeholder="Post title">
-                    </div>
-                    <div class="form-group">
-                        <label for="post-content">Content</label>
-                        <textarea id="post-content" rows="5" placeholder="Write your post here..."></textarea>
-                    </div>
-                    <button class="btn card-btn" onclick="createPost()">Submit Post</button>
-                </div>
-
-                <div id="posts-container">
-                    <!-- Posts will be loaded here -->
-                </div>
-            </div>
-
-            <div id="admin-panel" style="display: none;">
-                <h3>Admin Panel</h3>
-                <div class="admin-section">
-                    <h4>Manage Posts</h4>
-                    <div id="admin-posts-list"></div>
-                </div>
-                <div class="admin-section">
-                    <h4>Manage Users</h4>
-                    <div id="admin-users-list"></div>
-                </div>
-                <button class="btn nav-btn" onclick="hideAdminPanel()">Back to Forum</button>
-            </div>
-        </div>
-
         <h2 class="section-title" id="downloads">Download Nano OS</h2>
         <p>Choose your version below to get started with Nano OS.</p>
 
@@ -849,7 +714,6 @@
                 <a href="#" class="footer-link" onclick="showSection('news-content'); return false;">News</a>
                 <a href="#" class="footer-link" onclick="showSection('docs-content'); return false;">Documentation</a>
                 <a href="#" class="footer-link" onclick="showSection('privacy-content'); return false;">Privacy</a>
-                <a href="#" class="footer-link" onclick="showSection('forum-content'); return false;">Forum</a>
             </div>
             <div class="copyright">The Nano OS Kernel ©2025 All Rights Reserved</div>
         </div>
@@ -873,6 +737,48 @@
 
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
+
+        // Dark mode functionality
+        function setupDarkMode() {
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+            
+            // Check for saved user preference or OS preference
+            const currentTheme = localStorage.getItem('theme');
+            if (currentTheme === 'dark' || (!currentTheme && prefersDarkScheme.matches)) {
+                document.body.classList.add('dark-mode');
+                darkModeToggle.textContent = '🌞';
+            } else {
+                darkModeToggle.textContent = '🌜';
+            }
+            
+            // Toggle dark mode
+            darkModeToggle.addEventListener('click', function() {
+                document.body.classList.toggle('dark-mode');
+                const theme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
+                localStorage.setItem('theme', theme);
+                
+                // Update button icon
+                if (theme === 'dark') {
+                    darkModeToggle.textContent = '🌞';
+                } else {
+                    darkModeToggle.textContent = '🌜';
+                }
+            });
+            
+            // Listen for OS theme changes
+            prefersDarkScheme.addListener((e) => {
+                if (!localStorage.getItem('theme')) {
+                    if (e.matches) {
+                        document.body.classList.add('dark-mode');
+                        darkModeToggle.textContent = '🌞';
+                    } else {
+                        document.body.classList.remove('dark-mode');
+                        darkModeToggle.textContent = '🌜';
+                    }
+                }
+            });
+        }
 
         // Show selected section
         function showSection(sectionId) {
@@ -1001,443 +907,17 @@
             }, 15000);
         }
 
-        // Forum functionality
-        let currentUser = null;
-
-        function showLoginForm() {
-            document.getElementById('login-form').style.display = 'block';
-            document.getElementById('register-form').style.display = 'none';
-        }
-
-        function showRegisterForm() {
-            document.getElementById('login-form').style.display = 'none';
-            document.getElementById('register-form').style.display = 'block';
-        }
-
-        function loginUser() {
-            const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-password').value;
-            
-            if (!email || !password) {
-                alert('Please fill in all fields');
-                return;
-            }
-            
-            database.ref('users').orderByChild('email').equalTo(email).once('value', snapshot => {
-                const users = snapshot.val();
-                if (!users) {
-                    alert('User not found');
-                    return;
-                }
-                
-                const userId = Object.keys(users)[0];
-                const user = users[userId];
-                
-                if (user.password !== password) { // In real app, use proper password hashing
-                    alert('Incorrect password');
-                    return;
-                }
-                
-                if (user.isBanned) {
-                    alert('This account has been banned');
-                    return;
-                }
-                
-                currentUser = {
-                    id: userId,
-                    ...user
-                };
-                
-                localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                
-                document.getElementById('forum-auth-container').style.display = 'none';
-                document.getElementById('forum-main').style.display = 'block';
-                
-                if (currentUser.isAdmin) {
-                    document.getElementById('admin-btn').style.display = 'block';
-                }
-                
-                loadPosts();
-            });
-        }
-
-        function registerUser() {
-            const username = document.getElementById('register-username').value;
-            const email = document.getElementById('register-email').value;
-            const password = document.getElementById('register-password').value;
-            
-            if (!username || !email || !password) {
-                alert('Please fill in all fields');
-                return;
-            }
-            
-            if (password.length < 6) {
-                alert('Password must be at least 6 characters');
-                return;
-            }
-            
-            if (!email.includes('@') || !email.includes('.')) {
-                alert('Please enter a valid email address');
-                return;
-            }
-            
-            database.ref('users').orderByChild('email').equalTo(email).once('value', snapshot => {
-                if (snapshot.exists()) {
-                    alert('Email already registered');
-                    return;
-                }
-                
-                const newUserRef = database.ref('users').push();
-                newUserRef.set({
-                    username,
-                    email,
-                    password, // In real app, hash this password
-                    isAdmin: false,
-                    isBanned: false,
-                    createdAt: firebase.database.ServerValue.TIMESTAMP
-                }).then(() => {
-                    alert('Registration successful! Please login.');
-                    showLoginForm();
-                    document.getElementById('register-username').value = '';
-                    document.getElementById('register-email').value = '';
-                    document.getElementById('register-password').value = '';
-                });
-            });
-        }
-
-        function logoutUser() {
-            currentUser = null;
-            localStorage.removeItem('currentUser');
-            document.getElementById('forum-auth-container').style.display = 'block';
-            document.getElementById('forum-main').style.display = 'none';
-            document.getElementById('admin-panel').style.display = 'none';
-            document.getElementById('login-email').value = '';
-            document.getElementById('login-password').value = '';
-            document.getElementById('admin-btn').style.display = 'none';
-            showLoginForm();
-        }
-
-        function showCreatePostForm() {
-            document.getElementById('create-post-form').style.display = 'block';
-            document.getElementById('post-title').value = '';
-            document.getElementById('post-content').value = '';
-            
-            // Make sure the button is set to create post, not update
-            const form = document.getElementById('create-post-form');
-            const oldButton = form.querySelector('button');
-            const newButton = document.createElement('button');
-            newButton.className = 'btn card-btn';
-            newButton.textContent = 'Submit Post';
-            newButton.onclick = function() {
-                createPost();
-            };
-            if (oldButton.textContent !== 'Submit Post') {
-                form.replaceChild(newButton, oldButton);
-            }
-            
-            window.scrollTo({
-                top: document.getElementById('create-post-form').offsetTop - 20,
-                behavior: 'smooth'
-            });
-        }
-
-        function createPost() {
-            const title = document.getElementById('post-title').value;
-            const content = document.getElementById('post-content').value;
-            
-            if (!title || !content) {
-                alert('Please fill in all fields');
-                return;
-            }
-            
-            if (title.length > 100) {
-                alert('Title must be less than 100 characters');
-                return;
-            }
-            
-            if (content.length > 2000) {
-                alert('Content must be less than 2000 characters');
-                return;
-            }
-            
-            database.ref('posts').push().set({
-                title,
-                content,
-                authorId: currentUser.id,
-                authorName: currentUser.username,
-                createdAt: firebase.database.ServerValue.TIMESTAMP,
-                updatedAt: firebase.database.ServerValue.TIMESTAMP
-            }).then(() => {
-                document.getElementById('post-title').value = '';
-                document.getElementById('post-content').value = '';
-                document.getElementById('create-post-form').style.display = 'none';
-                loadPosts();
-            });
-        }
-
-        function loadPosts() {
-            database.ref('posts').orderByChild('createdAt').once('value', snapshot => {
-                const posts = snapshot.val();
-                const postsContainer = document.getElementById('posts-container');
-                postsContainer.innerHTML = '';
-                
-                if (!posts) {
-                    postsContainer.innerHTML = '<p>No posts yet. Be the first to post!</p>';
-                    return;
-                }
-                
-                const postsArray = Object.entries(posts).map(([id, post]) => ({ id, ...post }));
-                postsArray.reverse(); // Show newest first
-                
-                postsArray.forEach(post => {
-                    const postElement = document.createElement('div');
-                    postElement.className = 'post';
-                    postElement.innerHTML = `
-                        <div class="post-header">
-                            <span class="post-author">${post.authorName}</span>
-                            <span class="post-date">${new Date(post.createdAt).toLocaleString()}</span>
-                        </div>
-                        <h3 class="post-title">${post.title}</h3>
-                        <div class="post-content">${post.content.replace(/\n/g, '<br>')}</div>
-                        ${currentUser && (currentUser.id === post.authorId || currentUser.isAdmin) ? `
-                        <div class="post-actions">
-                            ${currentUser.id === post.authorId ? `<button onclick="editPost('${post.id}')">Edit</button>` : ''}
-                            <button onclick="deletePost('${post.id}')">Delete</button>
-                        </div>
-                        ` : ''}
-                    `;
-                    postsContainer.appendChild(postElement);
-                });
-            });
-        }
-
-        function deletePost(postId) {
-            if (!confirm('Are you sure you want to delete this post?')) return;
-            
-            database.ref('posts/' + postId).remove().then(() => {
-                loadPosts();
-                if (document.getElementById('admin-panel').style.display === 'block') {
-                    loadAdminPosts();
-                }
-            });
-        }
-
-        function editPost(postId) {
-            database.ref('posts/' + postId).once('value', snapshot => {
-                const post = snapshot.val();
-                document.getElementById('post-title').value = post.title;
-                document.getElementById('post-content').value = post.content;
-                document.getElementById('create-post-form').style.display = 'block';
-                
-                // Replace submit button with update button
-                const form = document.getElementById('create-post-form');
-                const oldButton = form.querySelector('button');
-                const newButton = document.createElement('button');
-                newButton.className = 'btn card-btn';
-                newButton.textContent = 'Update Post';
-                newButton.onclick = function() {
-                    updatePost(postId);
-                };
-                form.replaceChild(newButton, oldButton);
-                
-                window.scrollTo({
-                    top: form.offsetTop - 20,
-                    behavior: 'smooth'
-                });
-            });
-        }
-
-        function updatePost(postId) {
-            const title = document.getElementById('post-title').value;
-            const content = document.getElementById('post-content').value;
-            
-            if (!title || !content) {
-                alert('Please fill in all fields');
-                return;
-            }
-            
-            database.ref('posts/' + postId).update({
-                title,
-                content,
-                updatedAt: firebase.database.ServerValue.TIMESTAMP
-            }).then(() => {
-                document.getElementById('post-title').value = '';
-                document.getElementById('post-content').value = '';
-                document.getElementById('create-post-form').style.display = 'none';
-                loadPosts();
-            });
-        }
-
-        function showAdminPanel() {
-            document.getElementById('forum-main').style.display = 'none';
-            document.getElementById('admin-panel').style.display = 'block';
-            loadAdminPosts();
-            loadAdminUsers();
-        }
-
-        function hideAdminPanel() {
-            document.getElementById('forum-main').style.display = 'block';
-            document.getElementById('admin-panel').style.display = 'none';
-        }
-
-        function loadAdminPosts() {
-            database.ref('posts').orderByChild('createdAt').once('value', snapshot => {
-                const posts = snapshot.val();
-                const postsList = document.getElementById('admin-posts-list');
-                postsList.innerHTML = '';
-                
-                if (!posts) {
-                    postsList.innerHTML = '<p>No posts yet.</p>';
-                    return;
-                }
-                
-                const postsArray = Object.entries(posts).map(([id, post]) => ({ id, ...post }));
-                postsArray.reverse(); // Show newest first
-                
-                postsArray.forEach(post => {
-                    const postElement = document.createElement('div');
-                    postElement.className = 'admin-list-item';
-                    postElement.innerHTML = `
-                        <div>
-                            <strong>${post.title}</strong> by ${post.authorName}
-                            <div style="font-size: 0.8rem; color: var(--text-light);">${new Date(post.createdAt).toLocaleString()}</div>
-                        </div>
-                        <div class="admin-actions">
-                            <button class="btn nav-btn" style="padding: 5px 10px;" onclick="deletePost('${post.id}')">Delete</button>
-                        </div>
-                    `;
-                    postsList.appendChild(postElement);
-                });
-            });
-        }
-
-        function loadAdminUsers() {
-            database.ref('users').once('value', snapshot => {
-                const users = snapshot.val();
-                const usersList = document.getElementById('admin-users-list');
-                usersList.innerHTML = '';
-                
-                if (!users) {
-                    usersList.innerHTML = '<p>No users yet.</p>';
-                    return;
-                }
-                
-                Object.entries(users).forEach(([id, user]) => {
-                    const userElement = document.createElement('div');
-                    userElement.className = 'admin-list-item';
-                    userElement.innerHTML = `
-                        <div>
-                            <strong>${user.username}</strong> (${user.email})
-                            <div style="font-size: 0.8rem; color: var(--text-light);">
-                                ${user.isAdmin ? 'Admin' : 'User'} • 
-                                ${user.isBanned ? 'Banned' : 'Active'} • 
-                                Joined: ${new Date(user.createdAt).toLocaleDateString()}
-                            </div>
-                        </div>
-                        <div class="admin-actions">
-                            ${!user.isAdmin ? `
-                                <button class="btn nav-btn" style="padding: 5px 10px;" onclick="toggleUserBan('${id}', ${user.isBanned || false})">
-                                    ${user.isBanned ? 'Unban' : 'Ban'}
-                                </button>
-                            ` : ''}
-                            ${!user.isAdmin ? `
-                                <button class="btn nav-btn" style="padding: 5px 10px;" onclick="deleteUser('${id}')">Delete</button>
-                            ` : ''}
-                        </div>
-                    `;
-                    usersList.appendChild(userElement);
-                });
-            });
-        }
-
-        function toggleUserBan(userId, isCurrentlyBanned) {
-            database.ref('users/' + userId).update({
-                isBanned: !isCurrentlyBanned
-            }).then(() => {
-                loadAdminUsers();
-                
-                // If the banned user is current user, log them out
-                if (currentUser && currentUser.id === userId && !isCurrentlyBanned) {
-                    alert('Your account has been banned');
-                    logoutUser();
-                }
-            });
-        }
-
-        function deleteUser(userId) {
-            if (!confirm('Are you sure you want to delete this user? This will also delete all their posts.')) return;
-            
-            // First delete user's posts
-            database.ref('posts').orderByChild('authorId').equalTo(userId).once('value', snapshot => {
-                const posts = snapshot.val();
-                if (posts) {
-                    Object.keys(posts).forEach(postId => {
-                        database.ref('posts/' + postId).remove();
-                    });
-                }
-                
-                // Then delete the user
-                database.ref('users/' + userId).remove().then(() => {
-                    loadAdminUsers();
-                    if (currentUser && currentUser.id === userId) {
-                        logoutUser();
-                    }
-                });
-            });
-        }
-
-        // Admin login (for initial setup)
-        function setupAdminAccount() {
-            // This is just for demo purposes - in production, you would create this manually
-            const adminEmail = 'admin@nano.os';
-            const adminPassword = 'NanoOSAdmin2025!'; // In production, use a strong password
-            
-            database.ref('users').orderByChild('email').equalTo(adminEmail).once('value', snapshot => {
-                if (!snapshot.exists()) {
-                    database.ref('users').push().set({
-                        username: 'admin',
-                        email: adminEmail,
-                        password: adminPassword, // In real app, hash this password
-                        isAdmin: true,
-                        isBanned: false,
-                        createdAt: firebase.database.ServerValue.TIMESTAMP
-                    }).then(() => {
-                        console.log('Admin account created');
-                    });
-                }
-            });
-        }
-
-        // Check if user is logged in on page load
-        function checkAuthState() {
-            const savedUser = localStorage.getItem('currentUser');
-            if (savedUser) {
-                currentUser = JSON.parse(savedUser);
-                document.getElementById('forum-auth-container').style.display = 'none';
-                document.getElementById('forum-main').style.display = 'block';
-                
-                if (currentUser.isAdmin) {
-                    document.getElementById('admin-btn').style.display = 'block';
-                }
-                
-                loadPosts();
-            }
-        }
-
         // Initialize everything when the page loads
         window.onload = function() {
+            setupDarkMode();
             loadDownloadCounts();
             setupNotifications();
-            checkAuthState();
 
             // Add animation to download cards
             const cards = document.querySelectorAll('.download-card');
             cards.forEach((card, index) => {
                 card.style.animationDelay = `${index * 0.1}s`;
             });
-
-            // Uncomment this line to create the admin account (then remove it after first run)
-            // setupAdminAccount();
         };
     </script>
 </body>
