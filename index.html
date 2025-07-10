@@ -1,133 +1,416 @@
-<script>
-    // Инициализация Firebase
-    const firebaseConfig = {
-        apiKey: "AIzaSyCu5jtb_u7H13Fl0OzGjp68jrBoUwIhfgI",
-        authDomain: "nano-e1f63.firebaseapp.com",
-        databaseURL: "https://nano-e1f63-default-rtdb.firebaseio.com",
-        projectId: "nano-e1f63",
-        storageBucket: "nano-e1f63.firebasestorage.app",
-        messagingSenderId: "904182892074",
-        appId: "1:904182892074:web:baed54b3dc97b1e7c16553"
-    };
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nano OS</title>
+    <style>
+        body {
+            font-family: monospace;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f6f6f6;
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            color: white;
+            text-decoration: none;
+            margin: 5px;
+            border-radius: 3px;
+        }
+        .nav-btn {
+            background-color: #777;
+        }
+        .nav-btn:hover {
+            background-color: #555;
+        }
+        .download-btn {
+            background-color: #555;
+        }
+        .download-btn:hover {
+            background-color: #333;
+        }
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #666;
+        }
+        .download-count {
+            font-size: 0.8em;
+            color: #666;
+            margin-top: 5px;
+        }
+        .content-section {
+            display: none;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #eee;
+            border-radius: 5px;
+        }
+        .active-section {
+            display: block;
+        }
+        /* New styles for notification toggle */
+        .notification-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #555;
+        }
+        input:checked + .slider {
+            background-color: #555;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        .notification-label {
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+        .notification-bell {
+            display: inline-block;
+            margin-right: 10px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Nano OS</h1>
+        <a href="#" class="btn nav-btn" onclick="showSection('news-content'); return false;">News</a>
+        <a href="#" class="btn nav-btn" onclick="showSection('docs-content'); return false;">Documentation</a>
+        <a href="#" class="btn nav-btn" onclick="showSection('privacy-content'); return false;">Privacy Policy</a>
+    </header>
 
-    firebase.initializeApp(firebaseConfig);
-    const database = firebase.database();
+    <main>
+        <p>Welcome to the Nano OS Kernel</p>
 
-    // Показываем выбранный раздел
-    function showSection(sectionId) {
-        // Скрываем все разделы
-        document.querySelectorAll('.content-section').forEach(section => {
-            section.classList.remove('active-section');
-        });
+        <div id="news-content" class="content-section active-section">
+            <h2>Latest News</h2>
+            <p>Global V0.0.2 </p>
+        </div>
+
+        <div id="docs-content" class="content-section">
+            <h2>Documentation</h2>
+            <pre>0001 - 25062025
+The very first kernel version. The letters A and T stand for Alpha Test. There was a basic file system and commands.
+0010 - 0.0.1bt
+The very first beta test of the kernel The time command was added
+0011 - 0.0.2
+full version of adra There is a small functionality Many new commands were added</pre>
+        </div>
+
+        <div id="privacy-content" class="content-section">
+            <h2>Privacy Policy</h2>
+            <p>Политика Конфиденциальности Nano Kernel & Nano OS
+
+Последнее обновление: [Дата]
+1. Введение
+
+Компания Nano Kernel (далее — «Мы», «Наш», «Nano») уважает вашу конфиденциальность и стремится защищать ваши персональные данные. Настоящая Политика конфиденциальности объясняет, как мы собираем, используем, храним и защищаем информацию при использовании нашего сайта, ядра Nano Kernel и операционной системы Nano OS.
+2. Какие данные мы собираем?
+
+В зависимости от вашего взаимодействия с нашими продуктами, мы можем собирать следующие данные:
+
+    Персональные данные:
+
+        Имя, email, контактные данные (если вы регистрируетесь или оставляете запрос).
+
+        Данные для входа (если требуется аутентификация).
+
+    Технические данные:
+
+        IP-адрес, тип браузера, версия ОС, данные об оборудовании (для аналитики и улучшения работы).
+
+        Логи работы системы (в случае ошибок или отладки).
+
+    Анонимные данные:
+
+        Статистика использования (без идентификации пользователя).
+
+3. Как мы используем ваши данные?
+
+    Для предоставления и улучшения Nano Kernel и Nano OS.
+
+    Для ответа на запросы и технической поддержки.
+
+    Для анализа производительности и исправления ошибок.
+
+    Для рассылки обновлений (если вы подписаны).
+
+4. Передача данных третьим лицам
+
+Мы не продаем и не передаем ваши персональные данные третьим лицам, за исключением:
+
+    Партнеров, необходимых для работы сервисов (хостинг, аналитика).
+
+    По требованию закона (судебные запросы).
+
+5. Защита данных
+
+Мы используем современные методы шифрования и защиты данных, включая:
+
+    HTTPS для передачи данных.
+
+    Ограниченный доступ к персональной информации.
+
+    Регулярные проверки безопасности.
+
+6. Ваши права
+
+Вы можете:
+
+    Запросить доступ, исправление или удаление ваших данных.
+
+    Отказаться от рассылки.
+
+    Отключить сбор аналитики (если такая возможность предусмотрена).
+
+7. Cookies и трекеры
+
+Наш сайт может использовать cookies для улучшения пользовательского опыта. Вы можете отключить их в настройках браузера.
+8. Изменения в политике
+
+Мы оставляем за собой право обновлять эту политику. Все изменения будут опубликованы на этой странице.
+9. Контакты
+
+По вопросам конфиденциальности обращайтесь:
+🌐 Сайт: [https://nanokernel.org]
+
+© Nano Kernel, [Год]. Все права защищены.</p>
+        </div>
+
+        <div class="download-section">
+            <div class="download-item">
+                <p>0.0.3</p>
+                <a href="https://drive.google.com/file/d/1G1G5jyXoMA7HV0roCXCyt-eM_yHjvSJj/view?usp=sharing" class="btn download-btn" onclick="trackDownload('ver1')">Download</a>
+                <div class="download-count" id="count1">Loading downloads...</div>
+            </div>
+
+            <div class="download-item">
+                <p>0.0.2</p>
+                <a href="https://drive.google.com/file/d/1z9QRclQrTu2SZS86EU9OgJEVVupe3s9R/view?usp=sharing" class="btn download-btn" onclick="trackDownload('ver2')">Download</a>
+                <div class="download-count" id="count2">Loading downloads...</div>
+            </div>
+
+            <div class="download-item">
+                <p>0.0.1bt</p>
+                <a href="https://drive.google.com/file/d/1z9QRclQrTu2SZS86EU9OgJEVVupe3s9R/view?usp=sharing" class="btn download-btn" onclick="trackDownload('ver3')">Download</a>
+                <div class="download-count" id="count3">Loading downloads...</div>
+            </div>
+            
+            <div class="download-item">
+                <p>25062025</p>
+                <a href="https://drive.google.com/file/d/181wh_0UOtjrKPdle4niSDDtNu1E38G4e/view?usp=sharing" class="btn download-btn" onclick="trackDownload('ver4')">Download</a>
+                <div class="download-count" id="count4">Loading downloads...</div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Notification Toggle -->
+    <div class="notification-container">
+        <span class="notification-bell">🔔</span>
+        <label class="switch">
+            <input type="checkbox" id="notificationToggle">
+            <span class="slider"></span>
+        </label>
+        <span class="notification-label">News Notifications</span>
+    </div>
+
+    <footer>
+        <p>The Nano OS Kernel</p>
+        <p>Все права защищены ©2025</p>
+    </footer>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-database-compat.js"></script>
+
+    <script>
+        // Инициализация Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyCu5jtb_u7H13Fl0OzGjp68jrBoUwIhfgI",
+            authDomain: "nano-e1f63.firebaseapp.com",
+            databaseURL: "https://nano-e1f63-default-rtdb.firebaseio.com",
+            projectId: "nano-e1f63",
+            storageBucket: "nano-e1f63.firebasestorage.app",
+            messagingSenderId: "904182892074",
+            appId: "1:904182892074:web:baed54b3dc97b1e7c16553"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
 
         // Показываем выбранный раздел
-        document.getElementById(sectionId).classList.add('active-section');
-    }
-
-    // Отслеживание загрузок
-    function trackDownload(version) {
-        const ref = database.ref('downloadCounts/' + version);
-        ref.transaction(currentCount => {
-            return (currentCount || 0) + 1;
-        });
-
-        // Разрешаем переход по ссылке
-        return true;
-    }
-
-    // Загрузка счетчиков
-    function loadDownloadCounts() {
-        // Создаем массив с ID версий, соответствующих элементам на странице
-        const versions = [
-            {id: 'ver1', countElement: 'count1'}, // 0.0.3
-            {id: 'ver2', countElement: 'count2'}, // 0.0.2
-            {id: 'ver3', countElement: 'count3'}, // 0.0.1bt
-            {id: 'ver4', countElement: 'count4'}  // 25062025
-        ];
-
-        versions.forEach(item => {
-            database.ref('downloadCounts/' + item.id).on('value', snapshot => {
-                const count = snapshot.val() || 0;
-                document.getElementById(item.countElement).textContent = `${count} downloads`;
+        function showSection(sectionId) {
+            // Скрываем все разделы
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active-section');
             });
-        });
-    }
 
-    // Notification functionality
-    function setupNotifications() {
-        const toggle = document.getElementById('notificationToggle');
-        
-        // Check if notifications are supported
-        if (!('Notification' in window)) {
-            toggle.disabled = true;
-            console.log('This browser does not support notifications');
-            return;
+            // Показываем выбранный раздел
+            document.getElementById(sectionId).classList.add('active-section');
         }
-        
-        // Check current permission state
-        if (Notification.permission === 'denied') {
-            toggle.disabled = true;
-            console.log('Notifications are blocked by the user');
-            return;
+
+        // Отслеживание загрузок
+        function trackDownload(version) {
+            const ref = database.ref('downloadCounts/' + version);
+            ref.transaction(currentCount => {
+                return (currentCount || 0) + 1;
+            });
+
+            // Разрешаем переход по ссылке
+            return true;
         }
-        
-        // Load saved preference
-        const notificationsEnabled = localStorage.getItem('notificationsEnabled') === 'true';
-        toggle.checked = notificationsEnabled;
-        
-        // Set up toggle handler
-        toggle.addEventListener('change', function() {
-            if (this.checked) {
-                // Request permission if not already granted
-                if (Notification.permission !== 'granted') {
-                    Notification.requestPermission().then(permission => {
-                        if (permission === 'granted') {
-                            localStorage.setItem('notificationsEnabled', 'true');
-                            showSampleNotification();
-                        } else {
-                            this.checked = false;
-                        }
-                    });
-                } else {
-                    localStorage.setItem('notificationsEnabled', 'true');
-                    showSampleNotification();
-                }
-            } else {
-                localStorage.setItem('notificationsEnabled', 'false');
+
+        // Загрузка счетчиков
+        function loadDownloadCounts() {
+            // Связываем версии с элементами на странице
+            const versions = [
+                {id: 'ver1', countElement: 'count1'}, // 0.0.3
+                {id: 'ver2', countElement: 'count2'}, // 0.0.2
+                {id: 'ver3', countElement: 'count3'}, // 0.0.1bt
+                {id: 'ver4', countElement: 'count4'}  // 25062025
+            ];
+
+            versions.forEach(item => {
+                database.ref('downloadCounts/' + item.id).on('value', snapshot => {
+                    const count = snapshot.val() || 0;
+                    document.getElementById(item.countElement).textContent = `${count} downloads`;
+                });
+            });
+        }
+
+        // Notification functionality
+        function setupNotifications() {
+            const toggle = document.getElementById('notificationToggle');
+            
+            // Check if notifications are supported
+            if (!('Notification' in window)) {
+                toggle.disabled = true;
+                console.log('This browser does not support notifications');
+                return;
             }
-        });
-        
-        // If notifications are enabled, listen for news updates
-        if (notificationsEnabled) {
-            listenForNewsUpdates();
-        }
-    }
-    
-    function showSampleNotification() {
-        if (Notification.permission === 'granted') {
-            new Notification('Nano OS News', {
-                body: 'Notifications are now enabled! You will receive updates about new releases and important news.',
-                icon: 'https://via.placeholder.com/64'
+            
+            // Check current permission state
+            if (Notification.permission === 'denied') {
+                toggle.disabled = true;
+                console.log('Notifications are blocked by the user');
+                return;
+            }
+            
+            // Load saved preference
+            const notificationsEnabled = localStorage.getItem('notificationsEnabled') === 'true';
+            toggle.checked = notificationsEnabled;
+            
+            // Set up toggle handler
+            toggle.addEventListener('change', function() {
+                if (this.checked) {
+                    // Request permission if not already granted
+                    if (Notification.permission !== 'granted') {
+                        Notification.requestPermission().then(permission => {
+                            if (permission === 'granted') {
+                                localStorage.setItem('notificationsEnabled', 'true');
+                                showSampleNotification();
+                            } else {
+                                this.checked = false;
+                            }
+                        });
+                    } else {
+                        localStorage.setItem('notificationsEnabled', 'true');
+                        showSampleNotification();
+                    }
+                } else {
+                    localStorage.setItem('notificationsEnabled', 'false');
+                }
             });
+            
+            // If notifications are enabled, listen for news updates
+            if (notificationsEnabled) {
+                listenForNewsUpdates();
+            }
         }
-    }
-    
-    function listenForNewsUpdates() {
-        // In a real implementation, you would listen to Firebase for news updates
-        // For now, we'll just simulate it with a timeout
-        setTimeout(() => {
-            if (localStorage.getItem('notificationsEnabled') === 'true' && Notification.permission === 'granted') {
-                new Notification('New Nano OS Update', {
-                    body: 'Version 0.0.3 is now available for download!',
+        
+        function showSampleNotification() {
+            if (Notification.permission === 'granted') {
+                new Notification('Nano OS News', {
+                    body: 'Notifications are now enabled! You will receive updates about new releases and important news.',
                     icon: 'https://via.placeholder.com/64'
                 });
             }
-        }, 10000);
-    }
+        }
+        
+        function listenForNewsUpdates() {
+            // In a real implementation, you would listen to Firebase for news updates
+            // For now, we'll just simulate it with a timeout
+            setTimeout(() => {
+                if (localStorage.getItem('notificationsEnabled') === 'true' && Notification.permission === 'granted') {
+                    new Notification('New Nano OS Update', {
+                        body: 'Version 0.0.3 is now available for download!',
+                        icon: 'https://via.placeholder.com/64'
+                    });
+                }
+            }, 10000);
+        }
 
-    // Initialize everything when the page loads
-    window.onload = function() {
-        loadDownloadCounts();
-        setupNotifications();
-    };
-</script>
+        // Initialize everything when the page loads
+        window.onload = function() {
+            loadDownloadCounts();
+            setupNotifications();
+        };
+    </script>
+</body>
+</html>
