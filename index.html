@@ -3,88 +3,394 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nano OS</title>
+    <title>Nano OS - Lightweight Operating System</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600&display=swap">
     <style>
+        :root {
+            --primary: #0066ff;
+            --primary-dark: #0052cc;
+            --secondary: #2e3440;
+            --accent: #88c0d0;
+            --background: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #2e3440;
+            --text-light: #4c566a;
+            --border: #e5e9f0;
+            --success: #5e81ac;
+            --warning: #d08770;
+        }
+
         body {
-            font-family: monospace;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f6f6f6;
-            color: #333;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
             line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
         }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
         header {
-            text-align: center;
-            margin-bottom: 40px;
+            background-color: var(--secondary);
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 100;
         }
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
         }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+            color: var(--accent);
+        }
+
+        .logo-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 1.8rem;
+        }
+
+        .logo-text span {
+            color: var(--accent);
+        }
+
+        nav {
+            display: flex;
+            gap: 10px;
+        }
+
         .btn {
             display: inline-block;
-            padding: 8px 16px;
-            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
             text-decoration: none;
-            margin: 5px;
-            border-radius: 3px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
         }
+
         .nav-btn {
-            background-color: #777;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
+
         .nav-btn:hover {
-            background-color: #555;
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
         }
-        .download-btn {
-            background-color: #555;
-        }
-        .download-btn:hover {
-            background-color: #333;
-        }
-        footer {
-            margin-top: 50px;
+
+        .hero {
+            background: linear-gradient(135deg, var(--secondary) 0%, #3b4252 100%);
+            color: white;
+            padding: 4rem 0;
             text-align: center;
-            font-size: 0.9em;
-            color: #666;
+            position: relative;
+            overflow: hidden;
         }
-        .download-count {
-            font-size: 0.8em;
-            color: #666;
-            margin-top: 5px;
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjAzKSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==');
+            opacity: 0.3;
         }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .download-btn {
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(0, 102, 255, 0.3);
+        }
+
+        .download-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 102, 255, 0.4);
+        }
+
+        .main-content {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: var(--secondary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent);
+        }
+
         .content-section {
             display: none;
-            margin: 20px 0;
-            padding: 15px;
-            background-color: #eee;
-            border-radius: 5px;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border);
         }
+
         .active-section {
             display: block;
+            animation: fadeIn 0.5s ease;
         }
-        /* New styles for notification toggle */
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .download-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 3rem;
+        }
+
+        .download-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .download-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .download-card h3 {
+            font-family: 'JetBrains Mono', monospace;
+            margin-top: 0;
+            color: var(--secondary);
+            font-size: 1.3rem;
+        }
+
+        .version-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            background-color: var(--accent);
+            color: white;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        .download-card p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .card-btn {
+            background-color: var(--primary);
+            color: white;
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            border-radius: 6px;
+        }
+
+        .card-btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .download-count {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .download-count::before {
+            content: "↓";
+            font-size: 1rem;
+        }
+
+        .terminal-window {
+            background-color: var(--secondary);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            font-family: 'JetBrains Mono', monospace;
+            color: #d8dee9;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .terminal-header {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .terminal-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-btn.red { background-color: #bf616a; }
+        .terminal-btn.yellow { background-color: #ebcb8b; }
+        .terminal-btn.green { background-color: #a3be8c; }
+
+        .terminal-body {
+            line-height: 1.5;
+        }
+
+        .terminal-prompt {
+            color: #88c0d0;
+        }
+
+        .terminal-command {
+            color: #d8dee9;
+            font-weight: bold;
+        }
+
+        .terminal-output {
+            color: #81a1c1;
+        }
+
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 1rem;
+        }
+
+        .footer-link {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: white;
+        }
+
+        .copyright {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        /* Notification toggle styles */
         .notification-container {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background-color: #fff;
+            background-color: var(--card-bg);
             padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
             z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid var(--border);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideUp 0.5s ease 1s forwards;
         }
+
+        @keyframes slideUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .notification-bell {
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+
         .switch {
             position: relative;
             display: inline-block;
-            width: 60px;
-            height: 34px;
+            width: 50px;
+            height: 24px;
         }
+
         .switch input {
             opacity: 0;
             width: 0;
             height: 0;
         }
+
         .slider {
             position: absolute;
             cursor: pointer;
@@ -94,167 +400,214 @@
             bottom: 0;
             background-color: #ccc;
             transition: .4s;
-            border-radius: 34px;
+            border-radius: 24px;
         }
+
         .slider:before {
             position: absolute;
             content: "";
-            height: 26px;
-            width: 26px;
+            height: 16px;
+            width: 16px;
             left: 4px;
             bottom: 4px;
             background-color: white;
             transition: .4s;
             border-radius: 50%;
         }
+
         input:checked + .slider {
-            background-color: #555;
+            background-color: var(--primary);
         }
-        input:checked + .slider {
-            background-color: #555;
-        }
+
         input:checked + .slider:before {
             transform: translateX(26px);
         }
+
         .notification-label {
-            margin-left: 10px;
-            vertical-align: middle;
+            font-size: 0.9rem;
+            color: var(--text);
         }
-        .notification-bell {
-            display: inline-block;
-            margin-right: 10px;
-            font-size: 20px;
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            nav {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .download-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .notification-container {
+                left: 20px;
+                right: 20px;
+                width: calc(100% - 40px);
+                justify-content: center;
+            }
+        }
+
+        /* Dark mode toggle (optional) */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+            color: var(--text);
+            font-size: 1.2rem;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Nano OS</h1>
-        <a href="#" class="btn nav-btn" onclick="showSection('news-content'); return false;">News</a>
-        <a href="#" class="btn nav-btn" onclick="showSection('docs-content'); return false;">Documentation</a>
-        <a href="#" class="btn nav-btn" onclick="showSection('privacy-content'); return false;">Privacy Policy</a>
+        <div class="container header-content">
+            <div class="logo">
+                <div class="logo-icon">⚡</div>
+                <div class="logo-text">Nano<span>OS</span></div>
+            </div>
+            <nav>
+                <a href="#" class="btn nav-btn" onclick="showSection('news-content'); return false;">News</a>
+                <a href="#" class="btn nav-btn" onclick="showSection('docs-content'); return false;">Docs</a>
+                <a href="#" class="btn nav-btn" onclick="showSection('privacy-content'); return false;">Privacy</a>
+            </nav>
+        </div>
     </header>
 
-    <main>
-        <p>Welcome to the Nano OS Kernel</p>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Lightweight. Fast. Secure.</h1>
+            <p>The Nano OS kernel is designed for efficiency and performance, providing a minimal yet powerful foundation for your computing needs.</p>
+            <a href="#downloads" class="btn download-btn">Download Now</a>
+        </div>
+    </section>
 
+    <main class="main-content container">
         <div id="news-content" class="content-section active-section">
-            <h2>Latest News</h2>
+            <h2 class="section-title">Latest Updates</h2>
             <p>Global update 0.0.3 brought a complete update of graphics. A cool greeting with a cat was added, and before entering a command now not >, but nano@os</p>
+            
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-btn red"></div>
+                    <div class="terminal-btn yellow"></div>
+                    <div class="terminal-btn green"></div>
+                </div>
+                <div class="terminal-body">
+                    <div><span class="terminal-prompt">nano@os</span> <span class="terminal-command">version</span></div>
+                    <div class="terminal-output">Nano OS Kernel v0.0.3</div>
+                    <div><span class="terminal-prompt">nano@os</span> <span class="terminal-command">help</span></div>
+                    <div class="terminal-output">Available commands: version, help, time, files, clear</div>
+                </div>
+            </div>
         </div>
 
         <div id="docs-content" class="content-section">
-            <h2>Documentation</h2>
-            <pre>0001 - 25062025
-The very first kernel version. The letters A and T stand for Alpha Test. There was a basic file system and commands.
-0010 - 0.0.1bt
-The very first beta test of the kernel The time command was added
-0011 - 0.0.2
-full version of adra There is a small functionality Many new commands were added</pre>
+            <h2 class="section-title">Documentation</h2>
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-btn red"></div>
+                    <div class="terminal-btn yellow"></div>
+                    <div class="terminal-btn green"></div>
+                </div>
+                <div class="terminal-body">
+                    <div class="terminal-output">Nano OS Kernel Changelog</div>
+                    <div class="terminal-output">--------------------------------</div>
+                    <div class="terminal-output">0001 - 25062025</div>
+                    <div class="terminal-output">The very first kernel version. The letters A and T stand for Alpha Test.</div>
+                    <div class="terminal-output">There was a basic file system and commands.</div>
+                    <div class="terminal-output">--------------------------------</div>
+                    <div class="terminal-output">0010 - 0.0.1bt</div>
+                    <div class="terminal-output">The very first beta test of the kernel</div>
+                    <div class="terminal-output">The time command was added</div>
+                    <div class="terminal-output">--------------------------------</div>
+                    <div class="terminal-output">0011 - 0.0.2</div>
+                    <div class="terminal-output">Full version of adra. There is a small functionality.</div>
+                    <div class="terminal-output">Many new commands were added</div>
+                </div>
+            </div>
         </div>
 
         <div id="privacy-content" class="content-section">
-            <h2>Privacy Policy</h2>
-            <p>Политика Конфиденциальности Nano Kernel & Nano OS
-
-Последнее обновление: [Дата]
-1. Введение
-
-Компания Nano Kernel (далее — «Мы», «Наш», «Nano») уважает вашу конфиденциальность и стремится защищать ваши персональные данные. Настоящая Политика конфиденциальности объясняет, как мы собираем, используем, храним и защищаем информацию при использовании нашего сайта, ядра Nano Kernel и операционной системы Nano OS.
-2. Какие данные мы собираем?
-
-В зависимости от вашего взаимодействия с нашими продуктами, мы можем собирать следующие данные:
-
-    Персональные данные:
-
-        Имя, email, контактные данные (если вы регистрируетесь или оставляете запрос).
-
-        Данные для входа (если требуется аутентификация).
-
-    Технические данные:
-
-        IP-адрес, тип браузера, версия ОС, данные об оборудовании (для аналитики и улучшения работы).
-
-        Логи работы системы (в случае ошибок или отладки).
-
-    Анонимные данные:
-
-        Статистика использования (без идентификации пользователя).
-
-3. Как мы используем ваши данные?
-
-    Для предоставления и улучшения Nano Kernel и Nano OS.
-
-    Для ответа на запросы и технической поддержки.
-
-    Для анализа производительности и исправления ошибок.
-
-    Для рассылки обновлений (если вы подписаны).
-
-4. Передача данных третьим лицам
-
-Мы не продаем и не передаем ваши персональные данные третьим лицам, за исключением:
-
-    Партнеров, необходимых для работы сервисов (хостинг, аналитика).
-
-    По требованию закона (судебные запросы).
-
-5. Защита данных
-
-Мы используем современные методы шифрования и защиты данных, включая:
-
-    HTTPS для передачи данных.
-
-    Ограниченный доступ к персональной информации.
-
-    Регулярные проверки безопасности.
-
-6. Ваши права
-
-Вы можете:
-
-    Запросить доступ, исправление или удаление ваших данных.
-
-    Отказаться от рассылки.
-
-    Отключить сбор аналитики (если такая возможность предусмотрена).
-
-7. Cookies и трекеры
-
-Наш сайт может использовать cookies для улучшения пользовательского опыта. Вы можете отключить их в настройках браузера.
-8. Изменения в политике
-
-Мы оставляем за собой право обновлять эту политику. Все изменения будут опубликованы на этой странице.
-9. Контакты
-
-По вопросам конфиденциальности обращайтесь:
-🌐 Сайт: [https://nanokernel.org]
-
-© Nano Kernel, [Год]. Все права защищены.</p>
+            <h2 class="section-title">Privacy Policy</h2>
+            <div style="background-color: var(--card-bg); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border);">
+                <h3>Nano Kernel & Nano OS Privacy Policy</h3>
+                <p><strong>Last Updated:</strong> June 25, 2025</p>
+                
+                <h4>1. Introduction</h4>
+                <p>Company Nano Kernel (hereinafter — "We", "Our", "Nano") respects your privacy and is committed to protecting your personal data. This Privacy Policy explains how we collect, use, store and protect information when using our website, Nano Kernel and Nano OS operating system.</p>
+                
+                <h4>2. What data do we collect?</h4>
+                <p>Depending on your interaction with our products, we may collect the following data:</p>
+                <ul>
+                    <li><strong>Personal data:</strong> Name, email, contact details (if you register or leave a request). Login data (if authentication is required).</li>
+                    <li><strong>Technical data:</strong> IP address, browser type, OS version, hardware data (for analytics and performance improvement). System logs (in case of errors or debugging).</li>
+                    <li><strong>Anonymous data:</strong> Usage statistics (without user identification).</li>
+                </ul>
+                
+                <h4>3. How we use your data</h4>
+                <ul>
+                    <li>To provide and improve Nano Kernel and Nano OS.</li>
+                    <li>To respond to requests and provide technical support.</li>
+                    <li>For performance analysis and bug fixes.</li>
+                    <li>To send updates (if you are subscribed).</li>
+                </ul>
+                
+                <h4>4. Data sharing</h4>
+                <p>We do not sell or transfer your personal data to third parties, except:</p>
+                <ul>
+                    <li>Partners necessary for the operation of services (hosting, analytics).</li>
+                    <li>When required by law (court orders).</li>
+                </ul>
+            </div>
         </div>
 
+        <h2 class="section-title" id="downloads">Download Nano OS</h2>
+        <p>Choose your version below to get started with Nano OS.</p>
+        
         <div class="download-section">
-            <div class="download-item">
-                <p>0.0.3</p>
-                <a href="https://drive.google.com/file/d/1G1G5jyXoMA7HV0roCXCyt-eM_yHjvSJj/view?usp=sharing" class="btn download-btn" onclick="trackDownload('ver1')">Download</a>
+            <div class="download-card">
+                <h3>Stable Release <span class="version-badge">0.0.3</span></h3>
+                <p>The latest stable version with improved graphics and new command prompt.</p>
+                <a href="https://drive.google.com/file/d/1G1G5jyXoMA7HV0roCXCyt-eM_yHjvSJj/view?usp=sharing" class="btn card-btn" onclick="trackDownload('ver1')">Download</a>
                 <div class="download-count" id="count1">Loading downloads...</div>
             </div>
 
-            <div class="download-item">
-                <p>0.0.2</p>
-                <a href="https://drive.google.com/file/d/1z9QRclQrTu2SZS86EU9OgJEVVupe3s9R/view?usp=sharing" class="btn download-btn" onclick="trackDownload('ver2')">Download</a>
+            <div class="download-card">
+                <h3>Previous Version <span class="version-badge">0.0.2</span></h3>
+                <p>Full version of adra with small functionality and many new commands.</p>
+                <a href="https://drive.google.com/file/d/1z9QRclQrTu2SZS86EU9OgJEVVupe3s9R/view?usp=sharing" class="btn card-btn" onclick="trackDownload('ver2')">Download</a>
                 <div class="download-count" id="count2">Loading downloads...</div>
             </div>
 
-            <div class="download-item">
-                <p>0.0.1bt</p>
-                <a href="https://drive.google.com/file/d/1z9QRclQrTu2SZS86EU9OgJEVVupe3s9R/view?usp=sharing" class="btn download-btn" onclick="trackDownload('ver3')">Download</a>
+            <div class="download-card">
+                <h3>Beta Test <span class="version-badge">0.0.1bt</span></h3>
+                <p>The first beta test version with time command functionality.</p>
+                <a href="https://drive.google.com/file/d/1z9QRclQrTu2SZS86EU9OgJEVVupe3s9R/view?usp=sharing" class="btn card-btn" onclick="trackDownload('ver3')">Download</a>
                 <div class="download-count" id="count3">Loading downloads...</div>
             </div>
             
-            <div class="download-item">
-                <p>25062025</p>
-                <a href="https://drive.google.com/file/d/181wh_0UOtjrKPdle4niSDDtNu1E38G4e/view?usp=sharing" class="btn download-btn" onclick="trackDownload('ver4')">Download</a>
+            <div class="download-card">
+                <h3>Alpha Release <span class="version-badge">25062025</span></h3>
+                <p>The very first alpha version with basic file system and commands.</p>
+                <a href="https://drive.google.com/file/d/181wh_0UOtjrKPdle4niSDDtNu1E38G4e/view?usp=sharing" class="btn card-btn" onclick="trackDownload('ver4')">Download</a>
                 <div class="download-count" id="count4">Loading downloads...</div>
             </div>
         </div>
@@ -267,12 +620,22 @@ full version of adra There is a small functionality Many new commands were added
             <input type="checkbox" id="notificationToggle">
             <span class="slider"></span>
         </label>
-        <span class="notification-label">News Notifications</span>
+        <span class="notification-label">Enable Update Notifications</span>
     </div>
 
     <footer>
-        <p>The Nano OS Kernel</p>
-        <p>Все права защищены ©2025</p>
+        <div class="container footer-content">
+            <div class="logo">
+                <div class="logo-icon">⚡</div>
+                <div class="logo-text">Nano<span>OS</span></div>
+            </div>
+            <div class="footer-links">
+                <a href="#" class="footer-link" onclick="showSection('news-content'); return false;">News</a>
+                <a href="#" class="footer-link" onclick="showSection('docs-content'); return false;">Documentation</a>
+                <a href="#" class="footer-link" onclick="showSection('privacy-content'); return false;">Privacy</a>
+            </div>
+            <div class="copyright">The Nano OS Kernel ©2025 All Rights Reserved</div>
+        </div>
     </footer>
 
     <!-- Firebase SDK -->
@@ -280,7 +643,7 @@ full version of adra There is a small functionality Many new commands were added
     <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-database-compat.js"></script>
 
     <script>
-        // Инициализация Firebase
+        // Firebase initialization
         const firebaseConfig = {
             apiKey: "AIzaSyCu5jtb_u7H13Fl0OzGjp68jrBoUwIhfgI",
             authDomain: "nano-e1f63.firebaseapp.com",
@@ -294,31 +657,44 @@ full version of adra There is a small functionality Many new commands were added
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
-        // Показываем выбранный раздел
+        // Show selected section
         function showSection(sectionId) {
-            // Скрываем все разделы
+            // Hide all sections
             document.querySelectorAll('.content-section').forEach(section => {
                 section.classList.remove('active-section');
             });
 
-            // Показываем выбранный раздел
+            // Show selected section
             document.getElementById(sectionId).classList.add('active-section');
+            
+            // Smooth scroll to section
+            if (sectionId === 'news-content') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+            }
         }
 
-        // Отслеживание загрузок
+        // Track downloads
         function trackDownload(version) {
             const ref = database.ref('downloadCounts/' + version);
             ref.transaction(currentCount => {
                 return (currentCount || 0) + 1;
             });
 
-            // Разрешаем переход по ссылке
+            // Show download confirmation
+            if (Notification.permission === 'granted' && localStorage.getItem('notificationsEnabled') === 'true') {
+                new Notification('Download Started', {
+                    body: 'Your download of Nano OS has begun. Thank you for choosing our OS!',
+                    icon: 'https://via.placeholder.com/64'
+                });
+            }
+            
             return true;
         }
 
-        // Загрузка счетчиков
+        // Load download counts
         function loadDownloadCounts() {
-            // Связываем версии с элементами на странице
             const versions = [
                 {id: 'ver1', countElement: 'count1'}, // 0.0.3
                 {id: 'ver2', countElement: 'count2'}, // 0.0.2
@@ -329,7 +705,7 @@ full version of adra There is a small functionality Many new commands were added
             versions.forEach(item => {
                 database.ref('downloadCounts/' + item.id).on('value', snapshot => {
                     const count = snapshot.val() || 0;
-                    document.getElementById(item.countElement).textContent = `${count} downloads`;
+                    document.getElementById(item.countElement).textContent = `${count.toLocaleString()} downloads`;
                 });
             });
         }
@@ -341,14 +717,14 @@ full version of adra There is a small functionality Many new commands were added
             // Check if notifications are supported
             if (!('Notification' in window)) {
                 toggle.disabled = true;
-                console.log('This browser does not support notifications');
+                document.querySelector('.notification-label').textContent = 'Notifications not supported';
                 return;
             }
             
             // Check current permission state
             if (Notification.permission === 'denied') {
                 toggle.disabled = true;
-                console.log('Notifications are blocked by the user');
+                document.querySelector('.notification-label').textContent = 'Notifications blocked';
                 return;
             }
             
@@ -364,14 +740,16 @@ full version of adra There is a small functionality Many new commands were added
                         Notification.requestPermission().then(permission => {
                             if (permission === 'granted') {
                                 localStorage.setItem('notificationsEnabled', 'true');
-                                showSampleNotification();
+                                showWelcomeNotification();
+                                listenForNewsUpdates();
                             } else {
                                 this.checked = false;
                             }
                         });
                     } else {
                         localStorage.setItem('notificationsEnabled', 'true');
-                        showSampleNotification();
+                        showWelcomeNotification();
+                        listenForNewsUpdates();
                     }
                 } else {
                     localStorage.setItem('notificationsEnabled', 'false');
@@ -384,10 +762,10 @@ full version of adra There is a small functionality Many new commands were added
             }
         }
         
-        function showSampleNotification() {
+        function showWelcomeNotification() {
             if (Notification.permission === 'granted') {
-                new Notification('Nano OS News', {
-                    body: 'Notifications are now enabled! You will receive updates about new releases and important news.',
+                new Notification('Nano OS Notifications Enabled', {
+                    body: 'You will now receive updates about new releases and important news.',
                     icon: 'https://via.placeholder.com/64'
                 });
             }
@@ -398,18 +776,24 @@ full version of adra There is a small functionality Many new commands were added
             // For now, we'll just simulate it with a timeout
             setTimeout(() => {
                 if (localStorage.getItem('notificationsEnabled') === 'true' && Notification.permission === 'granted') {
-                    new Notification('New Nano OS Update', {
-                        body: 'Version 0.0.3 is now available for download!',
+                    new Notification('New Nano OS Update Available', {
+                        body: 'Version 0.0.3 is now available with improved graphics and new features!',
                         icon: 'https://via.placeholder.com/64'
                     });
                 }
-            }, 10000);
+            }, 15000);
         }
 
         // Initialize everything when the page loads
         window.onload = function() {
             loadDownloadCounts();
             setupNotifications();
+            
+            // Add animation to download cards
+            const cards = document.querySelectorAll('.download-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
         };
     </script>
 </body>
